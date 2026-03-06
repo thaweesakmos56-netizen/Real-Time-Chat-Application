@@ -186,4 +186,4 @@ Thaweesak Seeangrat Computer Science Student สนใจด้าน Software D
 GitHub https://github.com/thaweesakmos56-netizen
 
 📄 License
-MIT License — โปรเจคนี้สร้างขึ้นเพื่อความฝันวัยเด็กและการศึกษาพัฒนาเท่านั้น
+MIT License — โปรเจคนี้สร้างขึ้นเพื่อการศึกษาและพัฒนาเท่านั้น
