@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NexChat – Real-Time Chat</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===================================================
+     LOGIN PAGE
+     =================================================== -->
+<div class="auth-page" id="login-page">
+  <div class="auth-card">
+    <div class="brand">
+      <div class="brand-icon">💬</div>
+      <div class="brand-name">NexChat</div>
+    </div>
+    <div class="auth-title">ยินดีต้อนรับกลับ</div>
+    <div class="auth-sub">เข้าสู่ระบบเพื่อเริ่มสนทนา</div>
+
+    <div class="alert" id="login-alert"></div>
+
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="login-user" placeholder="กรอก username" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="login-pass" placeholder="กรอก password" autocomplete="current-password">
+    </div>
+
+    <button class="btn btn-primary" onclick="doLogin()">เข้าสู่ระบบ</button>
+
+    <div class="auth-swap">ยังไม่มีบัญชี? <a onclick="showPage('register-page')">สมัครสมาชิก</a></div>
+  </div>
+</div>
+
+<!-- ===================================================
+     REGISTER PAGE
+     =================================================== -->
+<div class="auth-page" id="register-page">
+  <div class="auth-card">
+    <div class="brand">
+      <div class="brand-icon">💬</div>
+      <div class="brand-name">NexChat</div>
+    </div>
+    <div class="auth-title">สร้างบัญชีใหม่</div>
+    <div class="auth-sub">สมัครสมาชิกฟรี เริ่มต้นในไม่กี่วินาที</div>
+
+    <div class="alert" id="reg-alert"></div>
+
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="reg-user" placeholder="3-20 ตัวอักษร" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="reg-pass" placeholder="อย่างน้อย 4 ตัวอักษร" autocomplete="new-password">
+    </div>
+    <div class="field">
+      <label>ยืนยัน Password</label>
+      <input type="password" id="reg-pass2" placeholder="พิมพ์ password อีกครั้ง" autocomplete="new-password">
+    </div>
+
+    <button class="btn btn-primary" onclick="doRegister()">สมัครสมาชิก</button>
+
+    <div class="auth-swap">มีบัญชีแล้ว? <a onclick="showPage('login-page')">เข้าสู่ระบบ</a></div>
+  </div>
+</div>
+
+<!-- ===================================================
+     CHAT APP
+     =================================================== -->
+<div class="chat-app" id="chat-app">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="brand-icon">💬</div>
+    <div class="brand-name">NexChat</div>
+    <div class="tb-sep"></div>
+    <div class="tb-room"># <b id="current-room">general</b></div>
+    <div class="tb-right">
+      <div class="tb-user">
+        <div class="msg-av av0" id="tb-avatar" style="width:28px;height:28px;border-radius:50%;font-size:.72rem;font-weight:700;color:#090c14">?</div>
+        <span id="tb-username">-</span>
+      </div>
+      <button class="btn btn-ghost" style="padding:6px 12px;font-size:.78rem" onclick="doLogout()">ออก</button>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="chat-body">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Rooms -->
+      <div class="sb-section">
+        <div class="sb-label">ห้องแชท</div>
+        <div class="room-list" id="room-list"></div>
+      </div>
+
+      <!-- Create room -->
+      <div class="create-wrap">
+        <input type="text" id="new-room" placeholder="ชื่อห้องใหม่..." maxlength="30">
+        <button class="btn-add" onclick="createRoom()">+</button>
+      </div>
+
+      <!-- Online users -->
+      <div class="sb-section" style="border-bottom:none;padding-bottom:6px">
+        <div class="sb-label">ออนไลน์ <span id="online-count" style="color:var(--green)">0</span></div>
+      </div>
+      <div class="online-wrap" id="online-list"></div>
+
+    </div>
+
+    <!-- Main chat -->
+    <div class="chat-main">
+      <div class="messages" id="messages"></div>
+      <div class="typing-bar" id="typing-bar"></div>
+      <div class="input-bar">
+        <input type="text" id="msg-input" placeholder="ส่งข้อความใน #general" onkeydown="onKey(event)">
+        <button class="btn btn-icon btn-send" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Socket.io from server -->
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="chat.js"></script>
+</body>
+</html>
